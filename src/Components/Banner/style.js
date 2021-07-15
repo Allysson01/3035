@@ -80,7 +80,7 @@ export const Nome = styled.h1`
 `;
 
 export const Sinopse = styled.section`
-  text-align: left;
+  text-align: justify;
   position: relative;
   line-height: 1.4;
   font-weight: 500;
