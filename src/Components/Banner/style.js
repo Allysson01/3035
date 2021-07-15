@@ -8,8 +8,8 @@ export const BannerFilme = styled.div`
   background-image: url(${(props) => props.backdrop});
   position: relative;
   display: flex;
-  color: #000; 
-  
+  color: #000;
+
   @media (max-width: 760px) {
     background-image: url(${(props) => props.cartaoFilme});
   }
@@ -88,7 +88,9 @@ export const Sinopse = styled.section`
 
   @media (max-width: 760px) {
     font-size: 1rem;
-    line-height: 1.4;
+    overflow-x: auto;
+    max-width: 100vw;
+    font-size: 1.2rem;
   }
 `;
 
