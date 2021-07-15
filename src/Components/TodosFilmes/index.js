@@ -119,10 +119,11 @@ const TodosFilmes = (props) => {
                   style={{
                     textAlign: "center",
                     fontSize: " 1.4rem",
+                    fontWeight:800,
                   }}
                 >
                   {detalheFilme.mediaVotos}
-                  <span style={{ color: "#3c2", marginRight: 10 }}>tmdb</span>
+                  <span style={{ color: "#3c2", marginLeft: 10 }}>tmdb</span>
                 </div>
                 <Sinopse
                   style={{

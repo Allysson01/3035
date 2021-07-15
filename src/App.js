@@ -101,7 +101,7 @@ const App = () => {
 
   return (
     <>
-      {listaDeFilmes.length <= 0 ? (
+      {listaDeFilmes.length <= 0 && !destaqueParaBanner ? (
         <Carregamento id="Carregamento" />
       ) : (
         <Corpo id="corpo">
