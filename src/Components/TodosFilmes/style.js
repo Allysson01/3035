@@ -129,7 +129,7 @@ export const SpanPontos = styled.span`
 `;
 
 export const AreaLinha = styled.div`
-  overflow-x: hidden;
+  overflow: hidden;
   padding-left: 20px;
   position: relative;
   margin: 20px 0 0 0;

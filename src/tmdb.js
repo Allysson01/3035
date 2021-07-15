@@ -20,11 +20,11 @@ const List = {
     return [await Busca(`/genre/movie/list?language=pt-br&api_key=${keyApi}`)];
   },
 
-  getGenresListFilter: async (genresId, genreName) => {
+  buscaPorGenero: async (genresId, nomeGenero) => {
     return [
       {
-        title: genreName,
-        items: await Busca(
+        tipo: nomeGenero,
+        filmes: await Busca(
           `/discover/movie?with_genres=${genresId}&language=pt-BR&api_key=${keyApi}`
         ),
       },
@@ -85,7 +85,9 @@ const List = {
 
   buscaDetalhes: async (movieId) => {
     if (movieId) {
-      return await Busca(`/movie/${movieId}?language=pt-BR&include_adult=false&api_key=${keyApi}`);
+      return await Busca(
+        `/movie/${movieId}?language=pt-BR&include_adult=false&api_key=${keyApi}`
+      );
     }
   },
 };

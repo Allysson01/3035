@@ -5,8 +5,7 @@ import Banner from "./Components/Banner/index";
 import TodosFilmes from "./Components/TodosFilmes/index";
 import Carregamento from "./Components/Carregamento/index";
 import Anuncio from "./Components/Anuncio/index";
-import TMDB from "./tmdb";
-import { sorteio } from "./Api/funcoes";
+import { carregarFilmes } from "./Api/funcoes";
 
 const Corpo = styled.section`
   display: flex;
@@ -50,36 +49,17 @@ const App = () => {
   const [anuncio2, setAnuncio2] = useState(null);
 
   useEffect(() => {
-    const carregarFilmes = async () => {
+    const carregar = async () => {
       setTimeout(async () => {
-        const lista = await TMDB.carregamentoDeLista();
+        const buscaFilmesEBanner = await carregarFilmes();
 
-        setListaDeFilmes((prevState) => (prevState = lista));
-
-        let numeroSorteado = await sorteio(lista);
-        let FilmeEscolhido =
-          lista[numeroSorteado].filmes.results[numeroSorteado];
-
-        const InformacoesFilme = await TMDB.buscaDetalhes(FilmeEscolhido.id);
-
-        if (InformacoesFilme.adult) return carregarFilmes();
-
-        setDestaqueParaBanner(InformacoesFilme);
-
-        numeroSorteado = await sorteio(lista);
-        FilmeEscolhido = lista[numeroSorteado].filmes.results[numeroSorteado];
-
-        let InformacoesAnuncio = await TMDB.buscaDetalhes(FilmeEscolhido.id);
-        setAnuncio1(InformacoesAnuncio);
-
-        numeroSorteado = await sorteio(lista);
-        FilmeEscolhido = lista[numeroSorteado].filmes.results[numeroSorteado];
-
-        InformacoesAnuncio = await TMDB.buscaDetalhes(FilmeEscolhido.id);
-        setAnuncio2(InformacoesAnuncio);
+        setListaDeFilmes((prevState) => (prevState = buscaFilmesEBanner.lista));
+        setDestaqueParaBanner(buscaFilmesEBanner.destaqueBanner);
+        setAnuncio1(buscaFilmesEBanner.anuncio1);
+        setAnuncio2(buscaFilmesEBanner.anuncio2);
       }, 2000);
     };
-    carregarFilmes();
+    carregar();
   }, []);
 
   useEffect(() => {

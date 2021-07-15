@@ -1,3 +1,5 @@
+import TMDB from "../tmdb";
+
 export const infomacoes = (dados) => {
   const urlBase = `https://image.tmdb.org/t/p/original`;
 
@@ -28,4 +30,31 @@ export const infomacoes = (dados) => {
 
 export const sorteio = async (lista) => {
   return Math.floor(Math.random() * (lista.length - 1));
+};
+
+export const carregarFilmes = async () => {
+  const lista = await TMDB.carregamentoDeLista();
+  
+  let numeroSorteado = await sorteio(lista);
+  let FilmeEscolhido = lista[numeroSorteado].filmes.results[numeroSorteado];
+  const banner = await TMDB.buscaDetalhes(FilmeEscolhido.id);
+
+  if (banner.adult) return carregarFilmes();
+
+  numeroSorteado = await sorteio(lista);
+  FilmeEscolhido = lista[numeroSorteado].filmes.results[numeroSorteado];
+
+  const InformacoesAnuncio1 = await TMDB.buscaDetalhes(FilmeEscolhido.id);
+
+  numeroSorteado = await sorteio(lista);
+  FilmeEscolhido = lista[numeroSorteado].filmes.results[numeroSorteado];
+
+  const InformacoesAnuncio2 = await TMDB.buscaDetalhes(FilmeEscolhido.id);
+
+  return {
+    lista: lista,
+    destaqueBanner: banner,
+    anuncio1: InformacoesAnuncio1,
+    anuncio2: InformacoesAnuncio2,
+  };
 };

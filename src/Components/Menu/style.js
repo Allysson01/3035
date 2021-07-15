@@ -84,7 +84,6 @@ export const Nome = styled.div`
   display: inline;
   cursor: pointer;
   font-size: 1.2rem;
-  transition: all ease 0.6s;
 `;
 
 export const OpcoesUsuario = styled.div`
@@ -203,4 +202,21 @@ export const Li = styled.li`
   color: #fff;
   font-size: 1.2rem;
   gap: 10px;
+`;
+
+export const AreaGeneros = styled.div`
+  position: relative;
+  margin-right: 15px;
+  cursor: pointer;
+`;
+
+export const Generos = styled.div`
+  position: absolute;
+  top: 55px;
+  right: 0px;
+  background: rgba(0, 0, 0, 0.9);
+  padding: 10px;
+  color: #fff;
+  border-radius: 4px;
+  cursor: default;
 `;

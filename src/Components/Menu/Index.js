@@ -17,6 +17,8 @@ import {
   MenuDispositivoMovel,
   Ul,
   Li,
+  AreaGeneros,
+  Generos,
 } from "./style";
 import Avatar from "../../image/avatar.png";
 import ArrowRightRoundedIcon from "@material-ui/icons/ArrowRightRounded";
@@ -27,11 +29,15 @@ import SearchRoundedIcon from "@material-ui/icons/SearchRounded";
 import MenuIcon from "@material-ui/icons/Menu";
 import TMDB from "../../tmdb";
 import { sorteio } from "../../Api/funcoes";
+import PopoverGenero from "../Popover/Generos/index";
+import { AutorenewTwoTone } from "@material-ui/icons";
 
 const MenuNav = (props) => {
   const [rotacionar, setRotacionar] = useState(false);
   const [abrirMenu, setAbrirMenu] = useState(false);
   const [pesquisa, setPesquisa] = useState("");
+  const [abrirGeneros, setAbrirGeneros] = useState(false);
+  const [abrirGenerosMobile, setAbrirGenerosMobile] = useState(false);
 
   const corDeFundo = props.corDeFundo || "transparent";
   const corTextoMenu = corDeFundo !== "transparent" ? "#fff" : "#000";
@@ -126,9 +132,13 @@ const MenuNav = (props) => {
       }, 5000);
       return;
     }
-    
+
     areaPesquisa.removeAttribute("style");
     return;
+  };
+
+  const mostrarGeneros = () => {
+    setAbrirGenerosMobile((prevState) => !abrirGenerosMobile);
   };
 
   return (
@@ -145,6 +155,19 @@ const MenuNav = (props) => {
         <Menu corDeFundo={corDeFundo} corTextoMenu={corTextoMenu}>
           <Logo>3035Flix</Logo>
           <AreaOpcoes id="AreaOpcoes">
+            <AreaGeneros
+              onClick={() => setAbrirGeneros((prevState) => !prevState)}
+            >
+              Generos
+              {abrirGeneros && (
+                <Generos>
+                  <PopoverGenero
+                    setDestaqueParaBanner={props.setDestaqueParaBanner}
+                    setListaDeFilmes={props.setListaDeFilmes}
+                  ></PopoverGenero>
+                </Generos>
+              )}
+            </AreaGeneros>
             <AreaPesquisa id="areaPesquisa">
               <BotaoPequisa onClick={abrirPesquisa}>
                 <SearchRoundedIcon
@@ -205,6 +228,16 @@ const MenuNav = (props) => {
           <Li>
             Configurações
             <SettingsRoundedIcon />
+          </Li>
+          <Li onClick={mostrarGeneros}>
+            Generos
+            {abrirGenerosMobile && (
+              <PopoverGenero                
+                setDestaqueParaBanner={props.setDestaqueParaBanner}
+                setListaDeFilmes={props.setListaDeFilmes}
+                setAbrirGenerosMobile={setAbrirGenerosMobile}
+              />
+            )}
           </Li>
         </Ul>
       </MenuDispositivoMovel>
